@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chess Coach</title>
+<meta name="description" content="Play a bot and get plain-language feedback on every move you make. Works offline.">
+<meta name="theme-color" content="#14181d">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <h1>Chess Coach</h1>
+      <p>Play a move. Get told why it was good or bad.</p>
+    </div>
+    <div class="controls">
+      <label>Opponent
+        <select id="selLevel">
+          <option value="1">Beginner</option>
+          <option value="2" selected>Club player</option>
+          <option value="3">Tough</option>
+        </select>
+      </label>
+      <label>You play
+        <select id="selColor">
+          <option value="w" selected>White</option>
+          <option value="b">Black</option>
+          <option value="r">Random</option>
+        </select>
+      </label>
+      <button id="btnNew" class="primary">New game</button>
+      <button id="btnInstall" hidden>Install app</button>
+    </div>
+  </header>
+
+  <main class="stage">
+    <section class="boardcol" aria-label="Chess board">
+      <div class="boardwrap">
+        <div id="evalbar" class="evalbar" title="Evaluation after your last move">
+          <div id="evalfill" class="evalfill"></div>
+        </div>
+        <div id="board" class="board" role="grid" aria-label="Board"></div>
+      </div>
+      <div id="status" class="status" role="status" aria-live="polite">Your move.</div>
+      <div class="actions">
+        <button id="btnHint">Hint</button>
+        <button id="btnUndo">Take back</button>
+        <button id="btnReview">Game review</button>
+      </div>
+    </section>
+
+    <aside class="side">
+      <section id="coach" class="coach" aria-live="polite">
+        <div class="coach-head">
+          <span id="badge" class="badge">Coach</span>
+          <span id="cpl" class="cpl"></span>
+        </div>
+        <p id="coachText">Make your first move. After each one I'll tell you how it was and, if it wasn't great, why.</p>
+        <div id="coachActions" class="coach-actions" hidden>
+          <button id="btnRetry" class="primary">Take back &amp; retry</button>
+          <button id="btnShowBest">Take back &amp; show better move</button>
+        </div>
+        <p class="fine">The coach is an engine looking a few moves ahead. It is a good guide for a learner, not a grandmaster.</p>
+      </section>
+
+      <section class="moves" aria-label="Moves">
+        <h2>Moves</h2>
+        <ol id="moveList" class="movelist"></ol>
+        <div class="legend">
+          <span><i class="d best"></i>best</span>
+          <span><i class="d good"></i>good</span>
+          <span><i class="d inaccuracy"></i>inaccuracy</span>
+          <span><i class="d mistake"></i>mistake</span>
+          <span><i class="d blunder"></i>blunder</span>
+        </div>
+      </section>
+    </aside>
+  </main>
+</div>
+
+<div id="promo" class="overlay" hidden>
+  <div class="card">
+    <h3>Promote to</h3>
+    <div id="promoChoices" class="promo-choices"></div>
+  </div>
+</div>
+
+<div id="review" class="overlay" hidden>
+  <div class="card wide">
+    <h3 id="reviewTitle">Game review</h3>
+    <div id="reviewBody"></div>
+    <div class="card-actions">
+      <button id="btnReviewClose" class="primary">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js" defer></script>
+</body>
+</html>
