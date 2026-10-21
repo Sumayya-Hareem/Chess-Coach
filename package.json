@@ -1,0 +1,21 @@
+{
+  "name": "chess-coach",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/test.js && node test/ui.test.mjs",
+    "build": "node build.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chess.js": "^1.4.0",
+    "esbuild": "^0.28.2"
+  },
+  "type": "module",
+  "devDependencies": {
+    "jsdom": "^29.1.1"
+  }
+}

@@ -1,6 +1,6 @@
 // Offline support: pre-cache the app shell, then answer from cache and refresh in the background.
 // Bump VERSION when you want installed copies to drop their old cache immediately.
-const VERSION = 'chess-coach-v1';
+const VERSION = 'chess-coach-v4';
 const SHELL = [
   './',
   './index.html',

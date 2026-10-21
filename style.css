@@ -7,7 +7,7 @@
   --accent: #f2b84b;
   --light: #efe6d2;
   --dark: #5f8a7e;
-  --board: min(94vw, 62vh, 560px);
+  --board: min(calc(100vw - 52px), 62vh, 560px);
   --best: #3fb27f;
   --good: #7bc86c;
   --inaccuracy: #e8c547;
@@ -56,7 +56,6 @@ button:focus-visible, select:focus-visible, .sq:focus-visible { outline: 3px sol
 }
 .evalbar.flipped { flex-direction: column; }
 .evalfill { background: #f1f1ee; height: 50%; transition: height .35s ease; }
-.evalbar.flipped 
 .board {
   display: grid; grid-template-columns: repeat(8, 1fr); grid-template-rows: repeat(8, 1fr);
   width: var(--board); height: var(--board);
@@ -129,7 +128,8 @@ button:focus-visible, select:focus-visible, .sq:focus-visible { outline: 3px sol
 .card { background: var(--panel); border: 1px solid #34404d; border-radius: 16px; padding: 18px 20px; width: min(92vw, 380px); max-height: 86vh; overflow: auto; }
 .card.wide { width: min(94vw, 560px); }
 .card h3 { margin: 0 0 12px; }
-.card-actions { display: flex; justify-content: flex-end; margin-top: 14px; }
+.card-actions { display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.confirm-text { margin: 0; color: var(--muted); }
 .promo-choices { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
 .promo-choices button { font-size: 2.4rem; line-height: 1; padding: 6px 0; min-height: 64px; background: var(--light); }
 .promo-choices button .piece { transform: none; }
@@ -150,3 +150,38 @@ button:focus-visible, select:focus-visible, .sq:focus-visible { outline: 3px sol
   .controls label { font-size: .68rem; }
   .movelist { max-height: 160px; }
 }
+
+/* ---------- table talk ---------- */
+.talk { background: var(--panel); border: 1px solid #2b3440; border-radius: 14px; padding: 12px 16px; }
+.talk h2 { margin: 0 0 8px; font-size: .8rem; color: var(--muted); text-transform: uppercase; letter-spacing: .7px; font-weight: 650; }
+.talklist { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; max-height: 230px; overflow: auto; overscroll-behavior: contain; }
+.talklist li { display: grid; gap: 1px; justify-items: start; }
+.talklist .meta { font-size: .7rem; color: var(--muted); padding-left: 4px; }
+.talklist .bubble { background: var(--panel2); border-radius: 4px 14px 14px 14px; padding: 7px 12px; border-left: 4px solid #566170; max-width: 100%; overflow-wrap: anywhere; }
+.talklist .bubble.smug { border-left-color: var(--mistake); }
+.talklist .bubble.nervous { border-left-color: #6fb4ff; }
+.talklist .bubble.cheer { border-left-color: var(--best); }
+.talklist .bubble.chill { border-left-color: #566170; }
+.talklist .bubble.impressed { border-left-color: var(--best); }
+.talklist .empty { color: var(--muted); font-size: .9rem; }
+
+/* ---------- toast ---------- */
+.toast {
+  position: fixed; z-index: 30; left: 50%; transform: translateX(-50%);
+  top: calc(env(safe-area-inset-top, 0px) + 10px);
+  width: min(92vw, 420px); padding: 10px 14px 10px 16px; border-radius: 14px;
+  background: var(--panel); border: 1px solid #3a4756; border-left: 7px solid #566170;
+  box-shadow: 0 10px 30px rgba(0,0,0,.5); cursor: pointer;
+}
+.toast[hidden] { display: none; }
+.toast strong { display: block; font-size: 1.02rem; }
+.toast span { color: var(--ink); font-size: .93rem; }
+.toast.great { border-left-color: var(--best); }
+.toast.bad { border-left-color: var(--mistake); }
+.toast.awful { border-left-color: var(--blunder); }
+.toast.show { animation: toast-in .28s ease-out; }
+@keyframes toast-in { from { opacity: 0; transform: translate(-50%, -14px); } to { opacity: 1; transform: translate(-50%, 0); } }
+@media (prefers-reduced-motion: reduce) { .toast.show { animation: none; } }
+
+/* An author display rule (e.g. display:flex) must never beat the hidden attribute. */
+[hidden] { display: none !important; }
